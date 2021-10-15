@@ -50,11 +50,51 @@ parser code {:
 	}
 :}
 
-// Declaracion de terminales (Ejemplo)
+// Declaracion de terminales
 
-terminal Token PLUS;
-terminal Token MINUS;
-// ...
+terminal Token SUMA;
+terminal Token RESTA;
+terminal Token PRODUCTO;
+terminal Token MENOR_QUE;
+terminal Token IGUAL_QUE;
+terminal Token BOOLEANO;
+terminal Token CIERTO;
+terminal Token FALSO;
+terminal Token COMIENZO;
+terminal Token FIN;
+terminal Token SI;
+terminal Token NO;
+terminal Token SINO;
+terminal Token Y;
+terminal Token ENTONCES;
+terminal Token DE;
+terminal Token PARA;
+terminal Token EN;
+terminal Token PARENTESIS_IZQ;
+terminal Token PARENTESIS_DER;
+terminal Token CORCHETE_IZQ;
+terminal Token CORCHETE_DER;
+terminal Token COMA;
+terminal Token PUNTO;
+terminal Token PUNTO_COMA;
+terminal Token DOS_PUNTOS;
+terminal Token FUNCION;
+terminal Token PROCEDIMIENTO;
+terminal Token PROGRAMA;
+terminal Token SUBPROGRAMAS;
+terminal Token ASIGNACION;
+terminal Token TIPOS;
+terminal Token VARIABLES;
+terminal Token CONSTANTES;
+terminal Token ESCRIBIR;
+terminal Token DEVOLVER;
+terminal Token RANGO;
+terminal Token VECTOR;
+terminal Token ENTERO;
+terminal Token INT;
+terminal Token STRING;
+terminal Token VAR;
+terminal Token ID;
 
 
 // Declaracion de no terminales
@@ -62,15 +102,59 @@ terminal Token MINUS;
 
 non terminal  			program;
 non terminal Axiom		axiom;
-// ...
+non terminal  			declaraciones;
+non terminal			declaracionVariables;
+non terminal			declaracionVariable;
+non terminal			declaracionConstantes;
+non terminal			declaracionConstante;
+non terminal			declaracionTiposVariables;
+non terminal			declaracionTipos;
+non terminal			declaracionTipo;
+non terminal			declaracionVariablesSubprogramas;
+non terminal			declaracionSubprogramas;
+non terminal			declaracionSubprograma;
+non terminal			declaracionFuncion;
+non terminal			declaracionProcedimiento;
+non terminal			llamadaProcedimientos;
+non terminal			sentencias;
+non terminal			sentencia;
+non terminal			sentenciaAsignacion;
+non terminal			sentenciaDevolver;
+non terminal			tipoPrimitivoCompuesto;
+non terminal			tipoPrimitivo;
+non terminal			tipoCompuesto;
+non terminal			sentenciaSiEntoncesSi;
+non terminal			sentenciaPara;
+non terminal			sentenciaSalida;
+non terminal			referencia;
+non terminal			valor;
+non terminal			valorReferencia;
+non terminal			expresion;
+non terminal			parametro;
+non terminal			declaracionParametro;
+non terminal			listaParametros;
+non terminal			constanteEntera;
+non terminal			declaracionResto;
+non terminal			parametrosFormales;
+non terminal			parametrosActuales;
+non terminal			accesoVectores;
 
 
 // Declaracion de relaciones de precedencia
-precedence left     PLUS,
-                    MINUS;
-// ...
+precedence left     SUMA;
+precedence left     RESTA;
+precedence left     PRODUCTO;
+precedence left     MENOR_QUE;
+precedence left     IGUAL_QUE;
+precedence left     Y;
+precedence right    NO;
+precedence left     PARENTESIS_IZQ;
+precedence left     PARENTESIS_DER;
+precedence left     CORCHETE_IZQ;
+precedence left     CORCHETE_DER;
 
-// Declaración de reglas de produccion
+
+// Declaracion de reglas de produccion
 
 
 start with program;
