@@ -52,8 +52,13 @@ parser code {:
 
 // Declaracion de terminales
 
+terminal Token CASO;
 terminal Token VACIO;
 terminal Token PRINCIPAL;
+terminal Token DEVUELVE;
+terminal Token LLAVE_ABRIR;
+terminal Token LLAVE_CERRAR;
+terminal Token INICIO_COMENTARIO;
 
 
 terminal Token SUMA;

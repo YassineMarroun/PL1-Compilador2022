@@ -39,13 +39,15 @@ import es.uned.lsi.compiler.lexical.LexicalErrorManager;
   
 
 ESPACIO_BLANCO = [ \t\r\n\f]
-fin = "fin"{ESPACIO_BLANCO}
-FINAL_LINEA = \r\n
+// FINAL_LINEA = \r\n
 DIGITO = [0-9]
 CARACTER = [A-Za-z]
-COMENTARIO = #.*{FINAL_LINEA}
 INT = {DIGITO}+
 STRING = \".*\"
+INICIO_COMENTARIO = ("/*")
+FINAL_COMENTARIO = ("*/")
+CADENA_TEXTO = [^\"]*
+COMENTARIO = {INICIO_COMENTARIO}{CADENA_TEXTO}{FINAL_COMENTARIO}
 ID = {CARACTER}({CARACTER}|{DIGITO})
 
 
@@ -53,8 +55,13 @@ ID = {CARACTER}({CARACTER}|{DIGITO})
 
 <YYINITIAL> 
 {
+	"caso"			{return crearToken (sym.CASO);}
 	"vacio"  		    {return crearToken (sym.VACIO);}
-  "principal"     {return crearToken (sym.PRINCIPAL);}
+	"principal"     {return crearToken (sym.PRINCIPAL);}
+  "devuelve"     {return crearToken (sym.DEVUELVE);}
+  "{"				{return crearToken(sym.LLAVE_ABRIR);}
+   "}"				{return crearToken(sym.LLAVE_CERRAR);}
+
   
   
   "+"  				    {return crearToken (sym.SUMA);}
@@ -103,7 +110,6 @@ ID = {CARACTER}({CARACTER}|{DIGITO})
   {ID}            {return crearToken (sym.ID);}
   {ESPACIO_BLANCO}	{}
 
-{fin} {}
     
     // error en caso de coincidir con ningun patron
 	[^]     
