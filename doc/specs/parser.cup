@@ -53,57 +53,65 @@ parser code {:
 // Declaracion de terminales
 
 terminal Token CASO;
-terminal Token VACIO;
+terminal Token CONSTANTE;
+terminal Token CORTE;
+terminal Token ENTERO;
+terminal Token ESCRIBE;
+terminal Token ESCRIBE_ENT;
+terminal Token ALTERNATIVAS;
+terminal Token MIENTRAS;
+terminal Token PORDEFECTO;
 terminal Token PRINCIPAL;
 terminal Token DEVUELVE;
-terminal Token LLAVE_ABRIR;
-terminal Token LLAVE_CERRAR;
-terminal Token INICIO_COMENTARIO;
-
-
-terminal Token SUMA;
-terminal Token RESTA;
-terminal Token PRODUCTO;
-terminal Token MENOR_QUE;
-terminal Token IGUAL_QUE;
-terminal Token PARENTESIS_IZQ;
-terminal Token PARENTESIS_DER;
-terminal Token CORCHETE_IZQ;
-terminal Token CORCHETE_DER;
-terminal Token COMA;
-terminal Token PUNTO;
+terminal Token SI;
+terminal Token SINO;
+terminal Token TIPO;
+terminal Token VACIO;
+terminal Token PARENTESIS_ABRIR;
+terminal Token PARENTESIS_CERRAR;
+terminal Token CORCHETE_ABRIR;
+terminal Token CORCHETE_CERRAR;
+terminal Token APOSTROFE;
 terminal Token PUNTO_COMA;
 terminal Token DOS_PUNTOS;
-terminal Token RANGO;
+terminal Token SUMA;
+terminal Token PRODUCTO;
+terminal Token MENOR;
+terminal Token IGUAL;
+terminal Token CONJUNCION;
+terminal Token NEGACION;
+terminal Token AUTOINCREMENTO;
 terminal Token ASIGNACION;
-terminal Token BOOLEANO;
-terminal Token CIERTO;
-terminal Token FALSO;
-terminal Token COMIENZO;
-terminal Token FIN;
-terminal Token SI;
-terminal Token NO;
-terminal Token SINO;
-terminal Token Y;
-terminal Token ENTONCES;
-terminal Token DE;
-terminal Token PARA;
-terminal Token EN;
-terminal Token FUNCION;
-terminal Token PROCEDIMIENTO;
-terminal Token PROGRAMA;
-terminal Token SUBPROGRAMAS;
-terminal Token TIPOS;
-terminal Token VARIABLES;
-terminal Token CONSTANTES;
-terminal Token ESCRIBIR;
-terminal Token DEVOLVER;
-terminal Token VECTOR;
-terminal Token ENTERO;
+terminal Token ASIGNACION_SUMA;
+terminal Token LLAVE_ABRIR;
+terminal Token LLAVE_CERRAR;
+
 terminal Token INT;
 terminal Token STRING;
-terminal Token VAR;
 terminal Token ID;
+
+/* */
+terminal Token PROGRAMA;
+terminal Token COMIENZO;
+terminal Token FIN;
+terminal Token PUNTO;
+terminal Token CONSTANTES;
+terminal Token TIPOS;
+terminal Token VARIABLES;
+terminal Token SUBPROGRAMAS;
+terminal Token CIERTO;
+terminal Token FALSO;
+terminal Token VECTOR;
+terminal Token RANGO;
+terminal Token DE;
+terminal Token BOOLEANO;
+terminal Token COMA;
+terminal Token FUNCION;
+terminal Token PROCEDIMIENTO;
+terminal Token VAR;
+terminal Token ENTONCES;
+terminal Token PARA;
+terminal Token EN;
 
 
 // Declaracion de no terminales
@@ -128,7 +136,7 @@ non terminal			llamadaProcedimientos;
 non terminal			sentencias;
 non terminal			sentencia;
 non terminal			sentenciaAsignacion;
-non terminal			sentenciaDevolver;
+non terminal			sentenciaDevuelve;
 non terminal			tipoPrimitivoCompuesto;
 non terminal			tipoPrimitivo;
 non terminal			tipoCompuesto;
@@ -150,17 +158,19 @@ non terminal			accesoVectores;
 
 
 // Declaracion de relaciones de precedencia
-precedence left     SUMA;
-precedence left     RESTA;
+precedence left     PARENTESIS_ABRIR;
+precedence left     PARENTESIS_CERRAR;
+precedence left     CORCHETE_ABRIR;
+precedence left     CORCHETE_CERRAR;
+precedence left		AUTOINCREMENTO;
+precedence left     NEGACION;
 precedence left     PRODUCTO;
-precedence left     MENOR_QUE;
-precedence left     IGUAL_QUE;
-precedence left     Y;
-precedence right    NO;
-precedence left     PARENTESIS_IZQ;
-precedence left     PARENTESIS_DER;
-precedence left     CORCHETE_IZQ;
-precedence left     CORCHETE_DER;
+precedence left     SUMA;
+precedence left     MENOR;
+precedence left    	IGUAL;
+precedence left 	CONJUNCION;
+
+
 
 
 // Declaracion de reglas de produccion
@@ -188,7 +198,7 @@ program ::=
 	declaracionConstante ::= 				ID ASIGNACION valor PUNTO_COMA;
 	valor ::= 								INT | CIERTO | FALSO;
 	declaracionTipos ::= 					declaracionTipo | declaracionTipos declaracionTipo;
-	declaracionTipo ::= 					ID ASIGNACION VECTOR CORCHETE_IZQ constanteEntera RANGO constanteEntera CORCHETE_DER DE tipoPrimitivo PUNTO_COMA;
+	declaracionTipo ::= 					ID ASIGNACION VECTOR CORCHETE_ABRIR constanteEntera RANGO constanteEntera CORCHETE_CERRAR DE tipoPrimitivo PUNTO_COMA;
 	constanteEntera ::= 					INT | ID;
 	tipoPrimitivoCompuesto ::= 				tipoPrimitivo | tipoCompuesto;
 	tipoPrimitivo ::= 						ENTERO | BOOLEANO;
@@ -197,27 +207,27 @@ program ::=
 	declaracionVariable ::= 				ID DOS_PUNTOS tipoPrimitivoCompuesto PUNTO_COMA | ID COMA declaracionVariable;
 	declaracionSubprogramas ::= 			declaracionSubprograma | declaracionSubprogramas declaracionSubprograma;
 	declaracionSubprograma ::= 				declaracionFuncion | declaracionProcedimiento; 
-	declaracionFuncion ::= 					FUNCION ID PARENTESIS_IZQ parametrosFormales PARENTESIS_DER DOS_PUNTOS tipoPrimitivo DOS_PUNTOS declaraciones COMIENZO sentencias FIN PUNTO_COMA;
-	declaracionProcedimiento ::= 			PROCEDIMIENTO ID PARENTESIS_IZQ VAR parametrosFormales PARENTESIS_DER DOS_PUNTOS declaraciones COMIENZO sentencias FIN PUNTO_COMA;
+	declaracionFuncion ::= 					FUNCION ID PARENTESIS_ABRIR parametrosFormales PARENTESIS_CERRAR DOS_PUNTOS tipoPrimitivo DOS_PUNTOS declaraciones COMIENZO sentencias FIN PUNTO_COMA;
+	declaracionProcedimiento ::= 			PROCEDIMIENTO ID PARENTESIS_ABRIR VAR parametrosFormales PARENTESIS_CERRAR DOS_PUNTOS declaraciones COMIENZO sentencias FIN PUNTO_COMA;
 	parametrosFormales ::= 					listaParametros |;
 	listaParametros ::= 					declaracionParametro | listaParametros PUNTO_COMA declaracionParametro;
 	declaracionParametro ::= 				ID DOS_PUNTOS valorReferencia tipoPrimitivoCompuesto | ID COMA declaracionParametro;
 	valorReferencia ::= 					VAR |;
 	sentencias ::= 							sentencia PUNTO_COMA sentencias | ;
 	sentencia ::= 							sentenciaAsignacion | sentenciaSiEntoncesSi | sentenciaPara | sentenciaSalida | llamadaProcedimientos | accesoVectores
-											| sentenciaDevolver;
+											| sentenciaDevuelve;
 	sentenciaAsignacion ::= 				referencia ASIGNACION expresion;
 	sentenciaSiEntoncesSi ::= 				SI expresion ENTONCES DOS_PUNTOS sentencias FIN SI | SI expresion ENTONCES DOS_PUNTOS sentencias SINO DOS_PUNTOS sentencias FIN SI;
-	accesoVectores ::= 						ID CORCHETE_IZQ constanteEntera CORCHETE_DER | ID CORCHETE_IZQ accesoVectores CORCHETE_DER;
-	sentenciaDevolver ::= 					DEVOLVER referencia;
+	accesoVectores ::= 						ID CORCHETE_ABRIR constanteEntera CORCHETE_CERRAR | ID CORCHETE_ABRIR accesoVectores CORCHETE_CERRAR;
+	sentenciaDevuelve ::= 					DEVUELVE referencia;
 	sentenciaPara ::= 						PARA constanteEntera EN constanteEntera RANGO constanteEntera DOS_PUNTOS sentencias FIN PARA;
-	sentenciaSalida ::= 					ESCRIBIR PARENTESIS_IZQ parametro PARENTESIS_DER;
+	sentenciaSalida ::= 					ESCRIBE PARENTESIS_ABRIR parametro PARENTESIS_CERRAR;
 	parametro ::= 							expresion | STRING |;
-	expresion::= 							expresion SUMA expresion | expresion PRODUCTO expresion | expresion IGUAL_QUE expresion | expresion MENOR_QUE expresion
-											| expresion Y expresion | NO expresion | PARENTESIS_IZQ expresion PARENTESIS_DER | CORCHETE_IZQ expresion CORCHETE_DER
+	expresion::= 							expresion SUMA expresion | expresion PRODUCTO expresion | expresion IGUAL expresion | expresion MENOR expresion
+											| expresion CONJUNCION expresion | NEGACION expresion | PARENTESIS_ABRIR expresion PARENTESIS_CERRAR | CORCHETE_ABRIR expresion CORCHETE_CERRAR
 											| llamadaProcedimientos | referencia | INT | CIERTO | FALSO;	
-	referencia ::= 							ID | ID PARENTESIS_IZQ expresion PARENTESIS_DER | accesoVectores;
-    llamadaProcedimientos ::= 				ID PARENTESIS_IZQ referencia PARENTESIS_DER | ID PARENTESIS_IZQ parametrosActuales PARENTESIS_DER;
+	referencia ::= 							ID | ID PARENTESIS_ABRIR expresion PARENTESIS_CERRAR | accesoVectores;
+    llamadaProcedimientos ::= 				ID PARENTESIS_ABRIR referencia PARENTESIS_CERRAR | ID PARENTESIS_ABRIR parametrosActuales PARENTESIS_CERRAR;
 	parametrosActuales ::= 					referencia COMA referencia | referencia COMA parametrosActuales | referencia COMA INT | INT COMA INT | INT COMA referencia
     										| INT COMA parametrosActuales | ;
     
