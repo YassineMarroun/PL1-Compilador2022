@@ -55,8 +55,14 @@ ID = {CARACTER}({CARACTER}|{DIGITO})*
 
 <YYINITIAL> 
 {
-	"caso"				{return crearToken (sym.CASO);}
+	"#"					{return crearToken(sym.ALMOHADILLA);}
 	"constante"			{return crearToken (sym.CONSTANTE);}
+	";"					{return crearToken(sym.PUNTO_COMA);}
+
+	{ID}				{return crearToken (sym.ID);}
+	{INT}	       		{return crearToken (sym.INT);}
+	/* */
+	"caso"				{return crearToken (sym.CASO);}
 	"corte"				{return crearToken (sym.CORTE);}
 	"entero"    		{return crearToken (sym.ENTERO);}
 	"escribe"     		{return crearToken (sym.ESCRIBE);}
@@ -70,13 +76,11 @@ ID = {CARACTER}({CARACTER}|{DIGITO})*
 	"sino"				{return crearToken(sym.SINO);}
 	"tipo"				{return crearToken(sym.TIPO);}
 	"vacio"				{return crearToken(sym.VACIO);}
-	//""				{return crearToken(sym.COMILLAS)}
 	"("					{return crearToken(sym.PARENTESIS_ABRIR);}
 	")"					{return crearToken(sym.PARENTESIS_CERRAR);}
 	"["					{return crearToken(sym.CORCHETE_ABRIR);}
 	"]"					{return crearToken(sym.CORCHETE_CERRAR);}
 	"'"					{return crearToken(sym.APOSTROFE);}
-	";"					{return crearToken(sym.PUNTO_COMA);}
 	":"					{return crearToken(sym.DOS_PUNTOS);}
 	"+"					{return crearToken(sym.SUMA);}
 	"*"					{return crearToken(sym.PRODUCTO);}
@@ -87,11 +91,8 @@ ID = {CARACTER}({CARACTER}|{DIGITO})*
 	"++"				{return crearToken(sym.AUTOINCREMENTO);}
 	"="					{return crearToken(sym.ASIGNACION);}
 	"+="				{return crearToken(sym.ASIGNACION_SUMA);}
-	//"[]"				{return crearToken(sym.ACCESO_ELEMENTO);}
 	"{"					{return crearToken(sym.LLAVE_ABRIR);}
 	"}"					{return crearToken(sym.LLAVE_CERRAR);}
-	"#"					{return crearToken(sym.ALMOHADILLA);}
-	/* */
 	"programa"			{return crearToken(sym.PROGRAMA);}
 	"comienzo"			{return crearToken(sym.COMIENZO);}
 	"fin"				{return crearToken(sym.FIN);}
@@ -115,9 +116,7 @@ ID = {CARACTER}({CARACTER}|{DIGITO})*
 	"en"				{return crearToken(sym.EN);}
 	
 	{COMENTARIO} 		{}
-	{INT}	       		{return crearToken (sym.INT);}
   	{STRING}	        {return crearToken (sym.STRING);}
-	{ID}				{return crearToken (sym.ID);}
 	{ESPACIO_BLANCO}	{}
 	{fin}				{}
 

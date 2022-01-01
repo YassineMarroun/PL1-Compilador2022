@@ -50,10 +50,17 @@ parser code {:
 	}
 :}
 
+
 // Declaracion de terminales
 
-terminal Token CASO;
+terminal Token ALMOHADILLA;
 terminal Token CONSTANTE;
+terminal Token PUNTO_COMA;
+
+terminal Token ID;
+terminal Token INT;
+/* */
+terminal Token CASO;
 terminal Token CORTE;
 terminal Token ENTERO;
 terminal Token ESCRIBE;
@@ -72,7 +79,6 @@ terminal Token PARENTESIS_CERRAR;
 terminal Token CORCHETE_ABRIR;
 terminal Token CORCHETE_CERRAR;
 terminal Token APOSTROFE;
-terminal Token PUNTO_COMA;
 terminal Token DOS_PUNTOS;
 terminal Token SUMA;
 terminal Token PRODUCTO;
@@ -85,13 +91,7 @@ terminal Token ASIGNACION;
 terminal Token ASIGNACION_SUMA;
 terminal Token LLAVE_ABRIR;
 terminal Token LLAVE_CERRAR;
-terminal Token ALMOHADILLA;
-
-terminal Token INT;
 terminal Token STRING;
-terminal Token ID;
-
-/* */
 terminal Token PROGRAMA;
 terminal Token COMIENZO;
 terminal Token FIN;
@@ -120,11 +120,12 @@ terminal Token EN;
 
 non terminal  			program;
 non terminal Axiom		axiom;
+non terminal			declaracionConstantes;
+non terminal			declaracionConstante;
+/* */
 non terminal  			declaraciones;
 non terminal			declaracionVariables;
 non terminal			declaracionVariable;
-non terminal			declaracionConstantes;
-non terminal			declaracionConstante;
 non terminal			declaracionTiposVariables;
 non terminal			declaracionTipos;
 non terminal			declaracionTipo;
@@ -159,6 +160,7 @@ non terminal			accesoVectores;
 
 
 // Declaracion de relaciones de precedencia
+
 precedence left     PARENTESIS_ABRIR;
 precedence left     PARENTESIS_CERRAR;
 precedence left     CORCHETE_ABRIR;
@@ -172,10 +174,7 @@ precedence left    	IGUAL;
 precedence left 	CONJUNCION;
 
 
-
-
 // Declaracion de reglas de produccion
-
 
 start with program;
 
@@ -197,7 +196,7 @@ program ::=
 	declaracionConstante ::= ALMOHADILLA CONSTANTE ID INT PUNTO_COMA;
 
 	//axiom ::=								PROGRAMA ID DOS_PUNTOS declaraciones COMIENZO sentencias FIN PUNTO;
-	//declaracionConstantes ::= 				declaracionConstante | declaracionConstantes declaracionConstante;
+	//declaracionConstantes ::= 			declaracionConstante | declaracionConstantes declaracionConstante;
 	//declaracionConstante ::= 				ID ASIGNACION valor PUNTO_COMA;
 	declaraciones ::= 						CONSTANTES declaracionConstantes declaracionTiposVariables | declaracionTiposVariables;
 	declaracionTiposVariables ::= 			TIPOS declaracionTipos declaracionVariablesSubprogramas | declaracionVariablesSubprogramas;
