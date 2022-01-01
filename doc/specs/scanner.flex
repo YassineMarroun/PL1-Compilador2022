@@ -48,7 +48,7 @@ INICIO_COMENTARIO = ("/*")
 FINAL_COMENTARIO = ("*/")
 CADENA_TEXTO = [^\"]*
 COMENTARIO = {INICIO_COMENTARIO}{CADENA_TEXTO}{FINAL_COMENTARIO}
-ID = {CARACTER}({CARACTER}|{DIGITO})
+ID = {CARACTER}({CARACTER}|{DIGITO})*
 
 
 %%
@@ -90,7 +90,7 @@ ID = {CARACTER}({CARACTER}|{DIGITO})
 	//"[]"				{return crearToken(sym.ACCESO_ELEMENTO);}
 	"{"					{return crearToken(sym.LLAVE_ABRIR);}
 	"}"					{return crearToken(sym.LLAVE_CERRAR);}
-
+	"#"					{return crearToken(sym.ALMOHADILLA);}
 	/* */
 	"programa"			{return crearToken(sym.PROGRAMA);}
 	"comienzo"			{return crearToken(sym.COMIENZO);}

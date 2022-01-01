@@ -85,6 +85,7 @@ terminal Token ASIGNACION;
 terminal Token ASIGNACION_SUMA;
 terminal Token LLAVE_ABRIR;
 terminal Token LLAVE_CERRAR;
+terminal Token ALMOHADILLA;
 
 terminal Token INT;
 terminal Token STRING;
@@ -188,14 +189,20 @@ program ::=
   		syntaxErrorManager.syntaxInfo ("Parsing process ended.");
    :};
 
+	// 1. Constantes
+	// 2. Variables
+	// 3. Tipos
+	axiom ::= declaracionConstantes;
+	declaracionConstantes ::= declaracionConstante declaracionConstantes| ;
+	declaracionConstante ::= ALMOHADILLA CONSTANTE ID INT PUNTO_COMA;
 
-	axiom ::=								PROGRAMA ID DOS_PUNTOS declaraciones COMIENZO sentencias FIN PUNTO;
+	//axiom ::=								PROGRAMA ID DOS_PUNTOS declaraciones COMIENZO sentencias FIN PUNTO;
+	//declaracionConstantes ::= 				declaracionConstante | declaracionConstantes declaracionConstante;
+	//declaracionConstante ::= 				ID ASIGNACION valor PUNTO_COMA;
 	declaraciones ::= 						CONSTANTES declaracionConstantes declaracionTiposVariables | declaracionTiposVariables;
 	declaracionTiposVariables ::= 			TIPOS declaracionTipos declaracionVariablesSubprogramas | declaracionVariablesSubprogramas;
 	declaracionVariablesSubprogramas ::= 	VARIABLES declaracionVariables declaracionResto | declaracionResto;
 	declaracionResto ::= 					SUBPROGRAMAS declaracionSubprogramas | ;
-	declaracionConstantes ::= 				declaracionConstante | declaracionConstantes declaracionConstante;
-	declaracionConstante ::= 				ID ASIGNACION valor PUNTO_COMA;
 	valor ::= 								INT | CIERTO | FALSO;
 	declaracionTipos ::= 					declaracionTipo | declaracionTipos declaracionTipo;
 	declaracionTipo ::= 					ID ASIGNACION VECTOR CORCHETE_ABRIR constanteEntera RANGO constanteEntera CORCHETE_CERRAR DE tipoPrimitivo PUNTO_COMA;
