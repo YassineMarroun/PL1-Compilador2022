@@ -55,10 +55,12 @@ ID = {CARACTER}({CARACTER}|{DIGITO})*
 
 <YYINITIAL> 
 {
-           			       
+   			       
     "#"					{return crearToken(sym.ALMOHADILLA);}
-	"constante"			{return crearToken (sym.CONSTANTE);}
+	"constante"			{return crearToken(sym.CONSTANTE);}
 	";"					{return crearToken(sym.PUNTO_COMA);}
+	"entero"    		{return crearToken(sym.ENTERO);}
+	"vacio"				{return crearToken(sym.VACIO);}
 
 	"("					{return crearToken(sym.PARENTESIS_ABRIR);}
 	")"					{return crearToken(sym.PARENTESIS_CERRAR);}

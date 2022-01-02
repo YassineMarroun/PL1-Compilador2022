@@ -56,6 +56,9 @@ parser code {:
 terminal Token ALMOHADILLA;
 terminal Token CONSTANTE;
 terminal Token PUNTO_COMA;
+terminal Token ENTERO;
+terminal Token VACIO;
+
 terminal Token ID;
 terminal Token INT;
 
@@ -114,8 +117,20 @@ program ::=
 
 
 	// 1. Constantes
-	// 2. Variables
-	// 3. Tipos
+	// 2. Tipos
+	// 3. Variables
 	axiom ::= declaracionConstantes;
-	declaracionConstantes ::= declaracionConstante declaracionConstantes| ;
+	declaracionConstantes ::= declaracionConstante declaracionConstantes | ;
 	declaracionConstante ::= ALMOHADILLA CONSTANTE ID INT PUNTO_COMA;
+	
+	declaracionTiposPrimitivos ::= declaracionTipoEntero | declaracionTipoVacio;
+	declaracionTipoEntero ::= ENTERO ID PUNTO_COMA;
+	declaracionTipoVacio ::= VACIO ID PUNTO_COMA;
+
+	
+	declaracionTipos ::= declaracionTipo | declaracionTipos declaracionTipo;
+	declaracionTipo ::= ENTERO ASIGNACION VECTOR CORCHETE_ABRIR constanteEntera RANGO constanteEntera CORCHETE_CERRAR DE tipoPrimitivo PUNTO_COMA;
+	constanteEntera ::= 					INT | ID;
+	tipoPrimitivoCompuesto ::= 				tipoPrimitivo | tipoCompuesto;
+	tipoPrimitivo ::= 						ENTERO | VACIO;
+	tipoCompuesto ::= 						ID;
