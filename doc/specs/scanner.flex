@@ -28,7 +28,7 @@ import es.uned.lsi.compiler.lexical.LexicalErrorManager;
   LexicalErrorManager lexicalErrorManager = new LexicalErrorManager ();
   private int commentCount = 0;
 
-  Token crearToken(int x) {
+    Token crearToken(int x) {
     Token token = new Token(x);
     token.setLine(yyline + 1);
     token.setColumn(yycolumn + 1);
@@ -55,71 +55,32 @@ ID = {CARACTER}({CARACTER}|{DIGITO})*
 
 <YYINITIAL> 
 {
-	"#"					{return crearToken(sym.ALMOHADILLA);}
+           			       
+    "#"					{return crearToken(sym.ALMOHADILLA);}
 	"constante"			{return crearToken (sym.CONSTANTE);}
 	";"					{return crearToken(sym.PUNTO_COMA);}
 
-	{ID}				{return crearToken (sym.ID);}
-	{INT}	       		{return crearToken (sym.INT);}
-	/* */
-	"caso"				{return crearToken (sym.CASO);}
-	"corte"				{return crearToken (sym.CORTE);}
-	"entero"    		{return crearToken (sym.ENTERO);}
-	"escribe"     		{return crearToken (sym.ESCRIBE);}
-	"escribeENT"		{return crearToken(sym.ESCRIBE_ENT);}
-	"alternativas"		{return crearToken(sym.ALTERNATIVAS);}
-	"mientras"			{return crearToken(sym.MIENTRAS);}
-	"pordefecto"		{return crearToken(sym.PORDEFECTO);}
-	"principal"			{return crearToken(sym.PRINCIPAL);}
-	"devuelve"			{return crearToken(sym.DEVUELVE);}
-	"si"				{return crearToken(sym.SI);}
-	"sino"				{return crearToken(sym.SINO);}
-	"tipo"				{return crearToken(sym.TIPO);}
-	"vacio"				{return crearToken(sym.VACIO);}
 	"("					{return crearToken(sym.PARENTESIS_ABRIR);}
 	")"					{return crearToken(sym.PARENTESIS_CERRAR);}
 	"["					{return crearToken(sym.CORCHETE_ABRIR);}
 	"]"					{return crearToken(sym.CORCHETE_CERRAR);}
-	"'"					{return crearToken(sym.APOSTROFE);}
-	":"					{return crearToken(sym.DOS_PUNTOS);}
-	"+"					{return crearToken(sym.SUMA);}
+	"++"				{return crearToken(sym.AUTOINCREMENTO);}
+	"!"					{return crearToken(sym.NEGACION);}
 	"*"					{return crearToken(sym.PRODUCTO);}
+	"+"					{return crearToken(sym.SUMA);}
 	"<"					{return crearToken(sym.MENOR);}
 	"=="				{return crearToken(sym.IGUAL);}
 	"&&"				{return crearToken(sym.CONJUNCION);}
-	"!"					{return crearToken(sym.NEGACION);}
-	"++"				{return crearToken(sym.AUTOINCREMENTO);}
-	"="					{return crearToken(sym.ASIGNACION);}
-	"+="				{return crearToken(sym.ASIGNACION_SUMA);}
-	"{"					{return crearToken(sym.LLAVE_ABRIR);}
-	"}"					{return crearToken(sym.LLAVE_CERRAR);}
-	"programa"			{return crearToken(sym.PROGRAMA);}
-	"comienzo"			{return crearToken(sym.COMIENZO);}
-	"fin"				{return crearToken(sym.FIN);}
-	"."					{return crearToken(sym.PUNTO);}
-	"constantes"		{return crearToken(sym.CONSTANTES);}
-	"tipos"				{return crearToken(sym.TIPOS);}
-	"variables"			{return crearToken(sym.VARIABLES);}
-	"subprogramas"		{return crearToken(sym.SUBPROGRAMAS);}
-	"cierto"			{return crearToken(sym.CIERTO);}
-	"falso"				{return crearToken(sym.FALSO);}
-	"vector"			{return crearToken(sym.VECTOR);}
-	"rango"				{return crearToken(sym.RANGO);}
-	"de"				{return crearToken(sym.DE);}
-	"booleano"			{return crearToken(sym.BOOLEANO);}
-	","					{return crearToken(sym.COMA);}
-	"funcion"			{return crearToken(sym.FUNCION);}
-	"procedimiento"		{return crearToken(sym.PROCEDIMIENTO);}
-	"var"				{return crearToken(sym.VAR);}
-	"entonces"			{return crearToken(sym.ENTONCES);}
-	"para"				{return crearToken(sym.PARA);}
-	"en"				{return crearToken(sym.EN);}
-	
-	{COMENTARIO} 		{}
-  	{STRING}	        {return crearToken (sym.STRING);}
-	{ESPACIO_BLANCO}	{}
-	{fin}				{}
 
+
+	{ESPACIO_BLANCO}	{}
+	{ID}				{return crearToken (sym.ID);}
+	{INT}	       		{return crearToken (sym.INT);}
+
+
+   
+
+{fin} {}
     
     // error en caso de coincidir con ningun patron
 	[^]     
@@ -130,4 +91,5 @@ ID = {CARACTER}({CARACTER}|{DIGITO})*
                            error.setLexema (yytext ());
                            lexicalErrorManager.lexicalError (error);
                         }
+   
 }

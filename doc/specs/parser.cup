@@ -56,63 +56,21 @@ parser code {:
 terminal Token ALMOHADILLA;
 terminal Token CONSTANTE;
 terminal Token PUNTO_COMA;
-
 terminal Token ID;
 terminal Token INT;
-/* */
-terminal Token CASO;
-terminal Token CORTE;
-terminal Token ENTERO;
-terminal Token ESCRIBE;
-terminal Token ESCRIBE_ENT;
-terminal Token ALTERNATIVAS;
-terminal Token MIENTRAS;
-terminal Token PORDEFECTO;
-terminal Token PRINCIPAL;
-terminal Token DEVUELVE;
-terminal Token SI;
-terminal Token SINO;
-terminal Token TIPO;
-terminal Token VACIO;
+
 terminal Token PARENTESIS_ABRIR;
 terminal Token PARENTESIS_CERRAR;
 terminal Token CORCHETE_ABRIR;
 terminal Token CORCHETE_CERRAR;
-terminal Token APOSTROFE;
-terminal Token DOS_PUNTOS;
-terminal Token SUMA;
+terminal Token AUTOINCREMENTO;
+terminal Token NEGACION;
 terminal Token PRODUCTO;
+terminal Token SUMA;
 terminal Token MENOR;
 terminal Token IGUAL;
 terminal Token CONJUNCION;
-terminal Token NEGACION;
-terminal Token AUTOINCREMENTO;
-terminal Token ASIGNACION;
-terminal Token ASIGNACION_SUMA;
-terminal Token LLAVE_ABRIR;
-terminal Token LLAVE_CERRAR;
-terminal Token STRING;
-terminal Token PROGRAMA;
-terminal Token COMIENZO;
-terminal Token FIN;
-terminal Token PUNTO;
-terminal Token CONSTANTES;
-terminal Token TIPOS;
-terminal Token VARIABLES;
-terminal Token SUBPROGRAMAS;
-terminal Token CIERTO;
-terminal Token FALSO;
-terminal Token VECTOR;
-terminal Token RANGO;
-terminal Token DE;
-terminal Token BOOLEANO;
-terminal Token COMA;
-terminal Token FUNCION;
-terminal Token PROCEDIMIENTO;
-terminal Token VAR;
-terminal Token ENTONCES;
-terminal Token PARA;
-terminal Token EN;
+// ...
 
 
 // Declaracion de no terminales
@@ -122,41 +80,7 @@ non terminal  			program;
 non terminal Axiom		axiom;
 non terminal			declaracionConstantes;
 non terminal			declaracionConstante;
-/* */
-non terminal  			declaraciones;
-non terminal			declaracionVariables;
-non terminal			declaracionVariable;
-non terminal			declaracionTiposVariables;
-non terminal			declaracionTipos;
-non terminal			declaracionTipo;
-non terminal			declaracionVariablesSubprogramas;
-non terminal			declaracionSubprogramas;
-non terminal			declaracionSubprograma;
-non terminal			declaracionFuncion;
-non terminal			declaracionProcedimiento;
-non terminal			llamadaProcedimientos;
-non terminal			sentencias;
-non terminal			sentencia;
-non terminal			sentenciaAsignacion;
-non terminal			sentenciaDevuelve;
-non terminal			tipoPrimitivoCompuesto;
-non terminal			tipoPrimitivo;
-non terminal			tipoCompuesto;
-non terminal			sentenciaSiEntoncesSi;
-non terminal			sentenciaPara;
-non terminal			sentenciaSalida;
-non terminal			referencia;
-non terminal			valor;
-non terminal			valorReferencia;
-non terminal			expresion;
-non terminal			parametro;
-non terminal			declaracionParametro;
-non terminal			listaParametros;
-non terminal			constanteEntera;
-non terminal			declaracionResto;
-non terminal			parametrosFormales;
-non terminal			parametrosActuales;
-non terminal			accesoVectores;
+// ...
 
 
 // Declaracion de relaciones de precedencia
@@ -188,78 +112,10 @@ program ::=
   		syntaxErrorManager.syntaxInfo ("Parsing process ended.");
    :};
 
+
 	// 1. Constantes
 	// 2. Variables
 	// 3. Tipos
 	axiom ::= declaracionConstantes;
 	declaracionConstantes ::= declaracionConstante declaracionConstantes| ;
 	declaracionConstante ::= ALMOHADILLA CONSTANTE ID INT PUNTO_COMA;
-
-	//axiom ::=								PROGRAMA ID DOS_PUNTOS declaraciones COMIENZO sentencias FIN PUNTO;
-	//declaracionConstantes ::= 			declaracionConstante | declaracionConstantes declaracionConstante;
-	//declaracionConstante ::= 				ID ASIGNACION valor PUNTO_COMA;
-	declaraciones ::= 						CONSTANTES declaracionConstantes declaracionTiposVariables | declaracionTiposVariables;
-	declaracionTiposVariables ::= 			TIPOS declaracionTipos declaracionVariablesSubprogramas | declaracionVariablesSubprogramas;
-	declaracionVariablesSubprogramas ::= 	VARIABLES declaracionVariables declaracionResto | declaracionResto;
-	declaracionResto ::= 					SUBPROGRAMAS declaracionSubprogramas | ;
-	valor ::= 								INT | CIERTO | FALSO;
-	declaracionTipos ::= 					declaracionTipo | declaracionTipos declaracionTipo;
-	declaracionTipo ::= 					ID ASIGNACION VECTOR CORCHETE_ABRIR constanteEntera RANGO constanteEntera CORCHETE_CERRAR DE tipoPrimitivo PUNTO_COMA;
-	constanteEntera ::= 					INT | ID;
-	tipoPrimitivoCompuesto ::= 				tipoPrimitivo | tipoCompuesto;
-	tipoPrimitivo ::= 						ENTERO | BOOLEANO;
-	tipoCompuesto ::= 						ID;
-	declaracionVariables ::= 				declaracionVariable | declaracionVariables declaracionVariable;
-	declaracionVariable ::= 				ID DOS_PUNTOS tipoPrimitivoCompuesto PUNTO_COMA | ID COMA declaracionVariable;
-	declaracionSubprogramas ::= 			declaracionSubprograma | declaracionSubprogramas declaracionSubprograma;
-	declaracionSubprograma ::= 				declaracionFuncion | declaracionProcedimiento; 
-	declaracionFuncion ::= 					FUNCION ID PARENTESIS_ABRIR parametrosFormales PARENTESIS_CERRAR DOS_PUNTOS tipoPrimitivo DOS_PUNTOS declaraciones COMIENZO sentencias FIN PUNTO_COMA;
-	declaracionProcedimiento ::= 			PROCEDIMIENTO ID PARENTESIS_ABRIR VAR parametrosFormales PARENTESIS_CERRAR DOS_PUNTOS declaraciones COMIENZO sentencias FIN PUNTO_COMA;
-	parametrosFormales ::= 					listaParametros |;
-	listaParametros ::= 					declaracionParametro | listaParametros PUNTO_COMA declaracionParametro;
-	declaracionParametro ::= 				ID DOS_PUNTOS valorReferencia tipoPrimitivoCompuesto | ID COMA declaracionParametro;
-	valorReferencia ::= 					VAR |;
-	sentencias ::= 							sentencia PUNTO_COMA sentencias | ;
-	sentencia ::= 							sentenciaAsignacion | sentenciaSiEntoncesSi | sentenciaPara | sentenciaSalida | llamadaProcedimientos | accesoVectores
-											| sentenciaDevuelve;
-	sentenciaAsignacion ::= 				referencia ASIGNACION expresion;
-	sentenciaSiEntoncesSi ::= 				SI expresion ENTONCES DOS_PUNTOS sentencias FIN SI | SI expresion ENTONCES DOS_PUNTOS sentencias SINO DOS_PUNTOS sentencias FIN SI;
-	accesoVectores ::= 						ID CORCHETE_ABRIR constanteEntera CORCHETE_CERRAR | ID CORCHETE_ABRIR accesoVectores CORCHETE_CERRAR;
-	sentenciaDevuelve ::= 					DEVUELVE referencia;
-	sentenciaPara ::= 						PARA constanteEntera EN constanteEntera RANGO constanteEntera DOS_PUNTOS sentencias FIN PARA;
-	sentenciaSalida ::= 					ESCRIBE PARENTESIS_ABRIR parametro PARENTESIS_CERRAR;
-	parametro ::= 							expresion | STRING |;
-	expresion::= 							expresion SUMA expresion | expresion PRODUCTO expresion | expresion IGUAL expresion | expresion MENOR expresion
-											| expresion CONJUNCION expresion | NEGACION expresion | PARENTESIS_ABRIR expresion PARENTESIS_CERRAR | CORCHETE_ABRIR expresion CORCHETE_CERRAR
-											| llamadaProcedimientos | referencia | INT | CIERTO | FALSO;	
-	referencia ::= 							ID | ID PARENTESIS_ABRIR expresion PARENTESIS_CERRAR | accesoVectores;
-    llamadaProcedimientos ::= 				ID PARENTESIS_ABRIR referencia PARENTESIS_CERRAR | ID PARENTESIS_ABRIR parametrosActuales PARENTESIS_CERRAR;
-	parametrosActuales ::= 					referencia COMA referencia | referencia COMA parametrosActuales | referencia COMA INT | INT COMA INT | INT COMA referencia
-    										| INT COMA parametrosActuales | ;
-    
-	// ERRORES
-    axiom ::= ID error
-		{: syntaxErrorManager.syntaxInfo ("ERROR SINTÁCTICO: Se esperaba la palabra reservada 'programa'."); :}DOS_PUNTOS declaraciones COMIENZO sentencias FIN PUNTO
-		| PROGRAMA error
-        {: syntaxErrorManager.syntaxInfo ("ERROR SINTÁCTICO: ID incorrecto."); :}declaraciones COMIENZO sentencias FIN PUNTO | PROGRAMA ID declaraciones error
-        {: syntaxErrorManager.syntaxInfo ("ERROR SINTÁCTICO: Se esperaba la palabra reservada 'comienzo'."); :}COMIENZO sentencias FIN PUNTO
-		| PROGRAMA ID declaraciones COMIENZO sentencias error
-        {: syntaxErrorManager.syntaxInfo ("ERROR SINTÁCTICO: Se esperaba la palabra reservada 'fin'."); :}FIN PUNTO | PROGRAMA ID declaraciones COMIENZO sentencias FIN error 
-    	{: syntaxErrorManager.syntaxInfo ("ERROR SINTÁCTICO: Se esperaba un punto ('.')."); :}PUNTO
-	;
-     
-    declaraciones ::= declaracionConstantes error
-		{: syntaxErrorManager.syntaxInfo ("ERROR SINTÁCTICO: Se esperaba la palabra reservada 'constantes'."); :}declaracionTiposVariables
-    ;
-    																				
-    declaracionTiposVariables ::= declaracionTipos error
-		{: syntaxErrorManager.syntaxInfo ("ERROR SINTÁCTICO: Se esperaba la palabra reservada 'tipos'."); :}declaracionVariablesSubprogramas
-    ;
-	
-	declaracionVariablesSubprogramas ::= declaracionVariables error
-    	{: syntaxErrorManager.syntaxInfo ("ERROR SINTÁCTICO: Se esperaba la palabra reservada 'variables'."); :}declaracionResto
-    ;
-
-    declaracionResto ::= declaracionSubprogramas error
-		{: syntaxErrorManager.syntaxInfo ("ERROR SINTÁCTICO: Se esperaba la palabra reservada 'variables'."); :}
-	;
