@@ -58,6 +58,12 @@ terminal Token CONSTANTE;
 terminal Token PUNTO_COMA;
 terminal Token ENTERO;
 terminal Token VACIO;
+terminal Token TIPO;
+terminal Token COMA;
+terminal Token ASIGNACION;
+terminal Token PRINCIPAL;
+terminal Token LLAVE_ABRIR;
+terminal Token LLAVE_CERRAR;
 
 terminal Token ID;
 terminal Token INT;
@@ -73,6 +79,8 @@ terminal Token SUMA;
 terminal Token MENOR;
 terminal Token IGUAL;
 terminal Token CONJUNCION;
+
+
 // ...
 
 
@@ -83,6 +91,18 @@ non terminal  			program;
 non terminal Axiom		axiom;
 non terminal			declaracionConstantes;
 non terminal			declaracionConstante;
+non terminal			declaracionTipos;
+non terminal			declaracionTipo;
+non terminal			tamanhoTipo;
+non terminal			declaracionVariables;
+non terminal			declaracionVariable;
+non terminal			listadoIds;		
+non terminal			declaracionSubprogramas;
+non terminal			declaracionSubprograma;
+non terminal			funcionPrincipal;
+non terminal			parametrosFormales;
+non terminal			listaParametros;
+non terminal			bloqueFuncion;
 // ...
 
 
@@ -119,18 +139,21 @@ program ::=
 	// 1. Constantes
 	// 2. Tipos
 	// 3. Variables
-	axiom ::= declaracionConstantes;
+	axiom ::= declaracionConstantes declaracionTipos declaracionVariables declaracionSubprogramas
+			| declaracionConstantes declaracionTipos declaracionSubprogramas;
 	declaracionConstantes ::= declaracionConstante declaracionConstantes | ;
 	declaracionConstante ::= ALMOHADILLA CONSTANTE ID INT PUNTO_COMA;
-	
-	declaracionTiposPrimitivos ::= declaracionTipoEntero | declaracionTipoVacio;
-	declaracionTipoEntero ::= ENTERO ID PUNTO_COMA;
-	declaracionTipoVacio ::= VACIO ID PUNTO_COMA;
-
-	
-	declaracionTipos ::= declaracionTipo | declaracionTipos declaracionTipo;
-	declaracionTipo ::= ENTERO ASIGNACION VECTOR CORCHETE_ABRIR constanteEntera RANGO constanteEntera CORCHETE_CERRAR DE tipoPrimitivo PUNTO_COMA;
-	constanteEntera ::= 					INT | ID;
-	tipoPrimitivoCompuesto ::= 				tipoPrimitivo | tipoCompuesto;
-	tipoPrimitivo ::= 						ENTERO | VACIO;
-	tipoCompuesto ::= 						ID;
+	declaracionTipos ::= declaracionTipo declaracionTipos | ;
+	declaracionTipo ::= TIPO ENTERO ID CORCHETE_ABRIR tamanhoTipo CORCHETE_CERRAR PUNTO_COMA;
+	tamanhoTipo ::= ID | INT;
+	declaracionVariables ::= declaracionVariables declaracionVariable | declaracionVariable;
+	declaracionVariable ::= ID listadoIds PUNTO_COMA | ENTERO listadoIds PUNTO_COMA;
+	listadoIds ::= ID | ID COMA listadoIds | ID ASIGNACION INT | ID ASIGNACION INT COMA listadoIds;
+	declaracionSubprogramas ::= declaracionSubprograma declaracionSubprogramas | funcionPrincipal;
+	declaracionSubprograma ::= ENTERO ID PARENTESIS_ABRIR parametrosFormales PARENTESIS_CERRAR LLAVE_ABRIR bloqueFuncion LLAVE_CERRAR
+							| VACIO ID PARENTESIS_ABRIR parametrosFormales PARENTESIS_CERRAR LLAVE_ABRIR bloqueFuncion LLAVE_CERRAR;
+	funcionPrincipal ::= VACIO PRINCIPAL PARENTESIS_ABRIR PARENTESIS_CERRAR LLAVE_ABRIR bloqueFuncion LLAVE_CERRAR;
+	parametrosFormales ::= listaParametros | ;
+	listaParametros ::= declaracionParametro | listaParametros COMA declaracionParametro;
+	declaracionParametro ::= ENTERO ID;
+	bloqueFuncion ::= ;

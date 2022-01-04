@@ -61,6 +61,13 @@ ID = {CARACTER}({CARACTER}|{DIGITO})*
 	";"					{return crearToken(sym.PUNTO_COMA);}
 	"entero"    		{return crearToken(sym.ENTERO);}
 	"vacio"				{return crearToken(sym.VACIO);}
+	"tipo"				{return crearToken(sym.TIPO);}
+	","					{return crearToken(sym.COMA);}
+	"="					{return crearToken(sym.ASIGNACION);}
+	"principal"			{return crearToken(sym.PRINCIPAL);}
+	"{"					{return crearToken(sym.LLAVE_ABRIR);}
+	"}"					{return crearToken(sym.LLAVE_CERRAR);}
+
 
 	"("					{return crearToken(sym.PARENTESIS_ABRIR);}
 	")"					{return crearToken(sym.PARENTESIS_CERRAR);}
