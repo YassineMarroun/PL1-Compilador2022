@@ -67,8 +67,6 @@ ID = {CARACTER}({CARACTER}|{DIGITO})*
 	"principal"			{return crearToken(sym.PRINCIPAL);}
 	"{"					{return crearToken(sym.LLAVE_ABRIR);}
 	"}"					{return crearToken(sym.LLAVE_CERRAR);}
-
-
 	"("					{return crearToken(sym.PARENTESIS_ABRIR);}
 	")"					{return crearToken(sym.PARENTESIS_CERRAR);}
 	"["					{return crearToken(sym.CORCHETE_ABRIR);}
@@ -80,11 +78,20 @@ ID = {CARACTER}({CARACTER}|{DIGITO})*
 	"<"					{return crearToken(sym.MENOR);}
 	"=="				{return crearToken(sym.IGUAL);}
 	"&&"				{return crearToken(sym.CONJUNCION);}
-
+	"escribe"			{return crearToken(sym.ESCRIBE);}
+	"escribeEnt"		{return crearToken(sym.ESCRIBE_ENT);}
+	"+="				{return crearToken(sym.ASIGNACION_SUMA);}
+	"si"				{return crearToken(sym.SI);}
+	"sino"				{return crearToken(sym.SINO);}
+	"alternativas"		{return crearToken(sym.ALTERNATIVAS);}
+	"caso"				{return crearToken(sym.CASO);}
+	"corte"				{return crearToken(sym.CORTE);}
+	"pordefecto"		{return crearToken(sym.PORDEFECTO);}
 
 	{ESPACIO_BLANCO}	{}
 	{ID}				{return crearToken (sym.ID);}
 	{INT}	       		{return crearToken (sym.INT);}
+	{STRING}	    	{return crearToken (sym.STRING);}
 
 
    

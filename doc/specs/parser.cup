@@ -64,10 +64,6 @@ terminal Token ASIGNACION;
 terminal Token PRINCIPAL;
 terminal Token LLAVE_ABRIR;
 terminal Token LLAVE_CERRAR;
-
-terminal Token ID;
-terminal Token INT;
-
 terminal Token PARENTESIS_ABRIR;
 terminal Token PARENTESIS_CERRAR;
 terminal Token CORCHETE_ABRIR;
@@ -79,8 +75,19 @@ terminal Token SUMA;
 terminal Token MENOR;
 terminal Token IGUAL;
 terminal Token CONJUNCION;
+terminal Token ESCRIBE;
+terminal Token ESCRIBE_ENT;
+terminal Token ASIGNACION_SUMA;
+terminal Token SI;
+terminal Token SINO;
+temrinal Token ALTERNATIVAS;
+terminal Token CASO;
+terminal Token CORTE;
+terminal Token PORDEFECTO;
 
-
+terminal Token ID;
+terminal Token INT;
+terminal Token STRING;
 // ...
 
 
@@ -103,6 +110,25 @@ non terminal			funcionPrincipal;
 non terminal			parametrosFormales;
 non terminal			listaParametros;
 non terminal			bloqueFuncion;
+non terminal			sentencias;
+non terminal			setenncia;
+non terminal			llamadaProcedimientos;
+non terminal			parametros;
+non terminal			sentenciaSalida;
+non terminal			expresionAritmetica;
+non terminal			expresionVector;
+non terminal			sentenciaAsignacion;
+non terminal			referencia;
+non terminal			sentenciaSi;
+non terminal			bloqueSentencia;
+non terminal			sentenciaBloque;
+non terminal 			parteElse;
+non terminal			sentenciaAlternativas;
+non terminal			casosAlternativa;
+non terminal			casoAlternativa;
+non terminal			defectoAlternativa;
+non terminal			sentenciaLLamadaFuncion;
+non terminal			sentenciaMientras;
 // ...
 
 
@@ -119,6 +145,8 @@ precedence left     SUMA;
 precedence left     MENOR;
 precedence left    	IGUAL;
 precedence left 	CONJUNCION;
+precedence right	SI;
+precedence right	SINO;
 
 
 // Declaracion de reglas de produccion
@@ -156,4 +184,29 @@ program ::=
 	parametrosFormales ::= listaParametros | ;
 	listaParametros ::= declaracionParametro | listaParametros COMA declaracionParametro;
 	declaracionParametro ::= ENTERO ID;
-	bloqueFuncion ::= ;
+	bloqueFuncion ::= declaracionTipos declaracionVariables sentencias | declaracionTipos sentencias;
+	sentencias ::= sentencias sentencia | sentencia;
+	sentencia ::= sentenciaAsignacion | sentenciaSalida | sentenciaSi | bloqueSentencia;
+	bloqueSentencia ::= LLAVE_ABRIR declaracionVariables LLAVE_CERRAR | LLAVE_ABRIR LLAVE_CERRAR;
+	expresion ::= expresion SUMA expresion | expresion PRODUCTO expresion |
+			expresion AUTOINCREMENTO expresion | expresion IGUAL expresion |
+			expresion MENOR expresion | expresion CONJUNCION expresion |
+			NEGACION expresion | PARENTESIS_ABRIR expresion PARENTESIS_CERRAR |
+			llamadaProcedimientos | expresionVector | ID | INT;
+	expresionVector ::= ID CORCHETE_ABRIR expresionAritmetica CORCHETE_CERRAR;
+	llamadaProcedimientos ::= ID PARENTESIS_ABRIR parametros PARENTESIS_CERRAR | ID PARENTESIS_ABRIR PARENTESIS_CERRAR;
+	parametros ::= expresion | expresion COMA parametros;
+	sentenciaSalida ::= ESCRIBE PARENTESIS_ABRIR PARENTESIS_CERRAR PUNTO_COMA|
+			ESCRIBE PARENTESIS_ABRIR STRING PARENTESIS_CERRAR PUNTO_COMA|
+			ESCRIBE_ENT PARENTESIS_ABRIR PARENTESIS_CERRAR PUNTO_COMA|
+			ESCRIBE_ENT PARENTESIS_ABRIR expresionAritmetica PARENTESIS_CERRAR PUNTO_COMA;
+	expresionAritmetica ::= expresionAritmetica SUMA expresionAritmetica | expresionAritmetica PRODUCTO expresionAritmetica |
+			expresionAritmetica AUTOINCREMENTO expresionAritmetica | PARENTESIS_ABRIR expresionAritmetica PARENTESIS_CERRAR |
+			llamadaProcedimientos | ID | INT;
+	sentenciaAsignacion ::= referencia ASIGNACION expresion PUNTO_COMA | referencia ASIGNACION_SUMA expresion PUNTO_COMA;
+	referencia ::= ID | expresionVector;
+	sentenciaSi ::= SI PARENTESIS_ABRIR expresion PARENTESIS_CERRAR sentencia parteElse;
+	parteElse ::= SINO sentencia | ;
+	sentenciaAlternativas ::= ALTERNATIVAS PARENTESIS_ABRIR expresion PARENTESIS_CERRAR LLAVE_ABRIR LLAVE_CERRAR
+	sentenciaLLamadaFuncion :: = llamadaProcedimientos PUNTO_COMA;
+	sentenciaMientras ::= MIENTRAS PARENTESIS_ABRIR expresion PARENTESIS_CERRAR
