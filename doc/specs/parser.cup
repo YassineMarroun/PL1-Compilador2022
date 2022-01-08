@@ -86,6 +86,7 @@ terminal Token DOS_PUNTOS;
 terminal Token CORTE;
 terminal Token PORDEFECTO;
 terminal Token MIENTRAS;
+//terminal Token DEVUELVE;
 
 terminal Token ID;
 terminal Token INT;
@@ -167,11 +168,11 @@ program ::=
    :};
 
 
+	axiom ::= declaracionConstantes declaracionTipos declaracionVariables declaracionSubprogramas
+			| declaracionConstantes declaracionTipos declaracionSubprogramas;
 	// 1. Constantes
 	// 2. Tipos
 	// 3. Variables
-	axiom ::= declaracionConstantes declaracionTipos declaracionVariables declaracionSubprogramas
-			| declaracionConstantes declaracionTipos declaracionSubprogramas;
 	declaracionConstantes ::= declaracionConstante declaracionConstantes | ;
 	declaracionConstante ::= ALMOHADILLA CONSTANTE ID INT PUNTO_COMA;
 	declaracionTipos ::= declaracionTipo declaracionTipos | ;
@@ -180,6 +181,9 @@ program ::=
 	declaracionVariables ::= declaracionVariables declaracionVariable | declaracionVariable;
 	declaracionVariable ::= ID listadoIds PUNTO_COMA | ENTERO listadoIds PUNTO_COMA;
 	listadoIds ::= ID | ID COMA listadoIds | ID ASIGNACION INT | ID ASIGNACION INT COMA listadoIds;
+	// 4. Funciones
+	// 5. Sentencias
+	// 6. Expresiones
 	declaracionSubprogramas ::= declaracionSubprograma declaracionSubprogramas | funcionPrincipal;
 	declaracionSubprograma ::= ENTERO ID PARENTESIS_ABRIR parametrosFormales PARENTESIS_CERRAR LLAVE_ABRIR bloqueFuncion LLAVE_CERRAR
 							| VACIO ID PARENTESIS_ABRIR parametrosFormales PARENTESIS_CERRAR LLAVE_ABRIR bloqueFuncion LLAVE_CERRAR;
@@ -210,6 +214,9 @@ program ::=
 						| llamadaProcedimientos | expresionVector | ID | INT;
 	sentenciaAsignacion ::= referencia ASIGNACION expresion PUNTO_COMA | referencia ASIGNACION_SUMA expresion PUNTO_COMA;
 	referencia ::= ID | expresionVector;
+	// 7. Si - Sino
+	// 8. Alternativas
+	// 9. Mientras
 	sentenciaSi ::= SI PARENTESIS_ABRIR expresion PARENTESIS_CERRAR sentencia parteElse;
 	parteElse ::= SINO sentencia | ;
 	sentenciaAlternativas ::= ALTERNATIVAS PARENTESIS_ABRIR expresion PARENTESIS_CERRAR LLAVE_ABRIR casosAlternativa defectoAlternativa LLAVE_CERRAR;
