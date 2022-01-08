@@ -59,25 +59,25 @@ ID = {CARACTER}({CARACTER}|{DIGITO})*
     "#"					{return crearToken(sym.ALMOHADILLA);}
 	"constante"			{return crearToken(sym.CONSTANTE);}
 	";"					{return crearToken(sym.PUNTO_COMA);}
-	"entero"    		{return crearToken(sym.ENTERO);}
-	"vacio"				{return crearToken(sym.VACIO);}
 	"tipo"				{return crearToken(sym.TIPO);}
-	","					{return crearToken(sym.COMA);}
-	"="					{return crearToken(sym.ASIGNACION);}
-	"principal"			{return crearToken(sym.PRINCIPAL);}
-	"{"					{return crearToken(sym.LLAVE_ABRIR);}
-	"}"					{return crearToken(sym.LLAVE_CERRAR);}
-	"("					{return crearToken(sym.PARENTESIS_ABRIR);}
-	")"					{return crearToken(sym.PARENTESIS_CERRAR);}
+	"entero"    		{return crearToken(sym.ENTERO);}
 	"["					{return crearToken(sym.CORCHETE_ABRIR);}
 	"]"					{return crearToken(sym.CORCHETE_CERRAR);}
-	"++"				{return crearToken(sym.AUTOINCREMENTO);}
-	"!"					{return crearToken(sym.NEGACION);}
-	"*"					{return crearToken(sym.PRODUCTO);}
+	","					{return crearToken(sym.COMA);}
+	"="					{return crearToken(sym.ASIGNACION);}
+	"("					{return crearToken(sym.PARENTESIS_ABRIR);}
+	")"					{return crearToken(sym.PARENTESIS_CERRAR);}
+	"{"					{return crearToken(sym.LLAVE_ABRIR);}
+	"}"					{return crearToken(sym.LLAVE_CERRAR);}	
+	"vacio"				{return crearToken(sym.VACIO);}
+	"principal"			{return crearToken(sym.PRINCIPAL);}
 	"+"					{return crearToken(sym.SUMA);}
-	"<"					{return crearToken(sym.MENOR);}
+	"*"					{return crearToken(sym.PRODUCTO);}
 	"=="				{return crearToken(sym.IGUAL);}
+	"<"					{return crearToken(sym.MENOR);}
 	"&&"				{return crearToken(sym.CONJUNCION);}
+	"!"					{return crearToken(sym.NEGACION);}
+	"++"				{return crearToken(sym.AUTOINCREMENTO);}
 	"escribe"			{return crearToken(sym.ESCRIBE);}
 	"escribeEnt"		{return crearToken(sym.ESCRIBE_ENT);}
 	"+="				{return crearToken(sym.ASIGNACION_SUMA);}
@@ -85,16 +85,17 @@ ID = {CARACTER}({CARACTER}|{DIGITO})*
 	"sino"				{return crearToken(sym.SINO);}
 	"alternativas"		{return crearToken(sym.ALTERNATIVAS);}
 	"caso"				{return crearToken(sym.CASO);}
+	":"					{return crearToken(sym.DOS_PUNTOS);}
 	"corte"				{return crearToken(sym.CORTE);}
 	"pordefecto"		{return crearToken(sym.PORDEFECTO);}
+	"mientras"			{return crearToken(sym.MIENTRAS);}
 
 	{ESPACIO_BLANCO}	{}
+	{COMENTARIO}		{}
 	{ID}				{return crearToken (sym.ID);}
 	{INT}	       		{return crearToken (sym.INT);}
 	{STRING}	    	{return crearToken (sym.STRING);}
 
-
-   
 
 {fin} {}
     
@@ -106,6 +107,5 @@ ID = {CARACTER}({CARACTER}|{DIGITO})*
                            error.setColumn (yycolumn + 1);
                            error.setLexema (yytext ());
                            lexicalErrorManager.lexicalError (error);
-                        }
-   
+                        } 
 }
