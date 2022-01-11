@@ -89,7 +89,7 @@ ID = {CARACTER}({CARACTER}|{DIGITO})*
 	"corte"				{return crearToken(sym.CORTE);}
 	"pordefecto"		{return crearToken(sym.PORDEFECTO);}
 	"mientras"			{return crearToken(sym.MIENTRAS);}
-	//"devuelve"		{return crearToken(sym.DEVUELVE);}
+	"devuelve"		{return crearToken(sym.DEVUELVE);}
 
 	{ESPACIO_BLANCO}	{}
 	{COMENTARIO}		{}
