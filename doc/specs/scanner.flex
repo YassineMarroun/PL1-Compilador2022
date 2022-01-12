@@ -55,41 +55,45 @@ ID = {CARACTER}({CARACTER}|{DIGITO})*
 
 <YYINITIAL> 
 {
-   			       
-    "#"					{return crearToken(sym.ALMOHADILLA);}
-	"constante"			{return crearToken(sym.CONSTANTE);}
-	";"					{return crearToken(sym.PUNTO_COMA);}
+	// Palabras reservadas
+   	"caso"				{return crearToken(sym.CASO);}
+   "constante"			{return crearToken(sym.CONSTANTE);}
+   "corte"				{return crearToken(sym.CORTE);}		       
+    "entero"    		{return crearToken(sym.ENTERO);}
+	"escribe"			{return crearToken(sym.ESCRIBE);}
+	"escribeEnt"		{return crearToken(sym.ESCRIBE_ENT);}
+	"alternativas"		{return crearToken(sym.ALTERNATIVAS);}
+	"mientras"			{return crearToken(sym.MIENTRAS);}
+	"pordefecto"		{return crearToken(sym.PORDEFECTO);}
+	"principal"			{return crearToken(sym.PRINCIPAL);}
+	"devuelve"			{return crearToken(sym.DEVUELVE);}
+	"si"				{return crearToken(sym.SI);}
+	"sino"				{return crearToken(sym.SINO);}
 	"tipo"				{return crearToken(sym.TIPO);}
-	"entero"    		{return crearToken(sym.ENTERO);}
-	"["					{return crearToken(sym.CORCHETE_ABRIR);}
-	"]"					{return crearToken(sym.CORCHETE_CERRAR);}
-	","					{return crearToken(sym.COMA);}
-	"="					{return crearToken(sym.ASIGNACION);}
+	"vacio"				{return crearToken(sym.VACIO);}
+	
+	// Delimitadores
 	"("					{return crearToken(sym.PARENTESIS_ABRIR);}
 	")"					{return crearToken(sym.PARENTESIS_CERRAR);}
+	"["					{return crearToken(sym.CORCHETE_ABRIR);}
+	"]"					{return crearToken(sym.CORCHETE_CERRAR);}
 	"{"					{return crearToken(sym.LLAVE_ABRIR);}
 	"}"					{return crearToken(sym.LLAVE_CERRAR);}	
-	"vacio"				{return crearToken(sym.VACIO);}
-	"principal"			{return crearToken(sym.PRINCIPAL);}
+	"#"					{return crearToken(sym.ALMOHADILLA);}
+	","					{return crearToken(sym.COMA);}
+	";"					{return crearToken(sym.PUNTO_COMA);}
+	":"					{return crearToken(sym.DOS_PUNTOS);}
+
+	// Operadores
 	"+"					{return crearToken(sym.SUMA);}
 	"*"					{return crearToken(sym.PRODUCTO);}
-	"=="				{return crearToken(sym.IGUAL);}
 	"<"					{return crearToken(sym.MENOR);}
+	"=="				{return crearToken(sym.IGUAL);}
 	"&&"				{return crearToken(sym.CONJUNCION);}
 	"!"					{return crearToken(sym.NEGACION);}
 	"++"				{return crearToken(sym.AUTOINCREMENTO);}
-	"escribe"			{return crearToken(sym.ESCRIBE);}
-	"escribeEnt"		{return crearToken(sym.ESCRIBE_ENT);}
+	"="					{return crearToken(sym.ASIGNACION);}
 	"+="				{return crearToken(sym.ASIGNACION_SUMA);}
-	"si"				{return crearToken(sym.SI);}
-	"sino"				{return crearToken(sym.SINO);}
-	"alternativas"		{return crearToken(sym.ALTERNATIVAS);}
-	"caso"				{return crearToken(sym.CASO);}
-	":"					{return crearToken(sym.DOS_PUNTOS);}
-	"corte"				{return crearToken(sym.CORTE);}
-	"pordefecto"		{return crearToken(sym.PORDEFECTO);}
-	"mientras"			{return crearToken(sym.MIENTRAS);}
-	"devuelve"		{return crearToken(sym.DEVUELVE);}
 
 	{ESPACIO_BLANCO}	{}
 	{COMENTARIO}		{}

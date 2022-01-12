@@ -53,40 +53,45 @@ parser code {:
 
 // Declaracion de terminales
 
-terminal Token ALMOHADILLA;
+// Palabras reservadas
+terminal Token CASO;
 terminal Token CONSTANTE;
-terminal Token PUNTO_COMA;
-terminal Token TIPO;
+terminal Token CORTE;
 terminal Token ENTERO;
-terminal Token CORCHETE_ABRIR;
-terminal Token CORCHETE_CERRAR;
-terminal Token COMA;
-terminal Token ASIGNACION;
+terminal Token ESCRIBE;
+terminal Token ESCRIBE_ENT;
+terminal Token ALTERNATIVAS;
+terminal Token MIENTRAS;
+terminal Token PORDEFECTO;
+terminal Token PRINCIPAL;
+terminal Token DEVUELVE;
+terminal Token SI;
+terminal Token SINO;
+terminal Token TIPO;
+terminal Token VACIO;
+
+// Delimitadores
 terminal Token PARENTESIS_ABRIR;
 terminal Token PARENTESIS_CERRAR;
+terminal Token CORCHETE_ABRIR;
+terminal Token CORCHETE_CERRAR;
 terminal Token LLAVE_ABRIR;
 terminal Token LLAVE_CERRAR;
-terminal Token VACIO;
-terminal Token PRINCIPAL;
+terminal Token ALMOHADILLA;
+terminal Token COMA;
+terminal Token PUNTO_COMA;
+terminal Token DOS_PUNTOS;
+
+// Operadores
 terminal Token SUMA;
 terminal Token PRODUCTO;
-terminal Token IGUAL;
 terminal Token MENOR;
+terminal Token IGUAL;
 terminal Token CONJUNCION;
 terminal Token NEGACION;
 terminal Token AUTOINCREMENTO;
-terminal Token ESCRIBE;
-terminal Token ESCRIBE_ENT;
+terminal Token ASIGNACION;
 terminal Token ASIGNACION_SUMA;
-terminal Token SI;
-terminal Token SINO;
-terminal Token ALTERNATIVAS;
-terminal Token CASO;
-terminal Token DOS_PUNTOS;
-terminal Token CORTE;
-terminal Token PORDEFECTO;
-terminal Token MIENTRAS;
-terminal Token DEVUELVE;
 
 terminal Token ID;
 terminal Token INT;
