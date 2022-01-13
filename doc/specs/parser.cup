@@ -237,7 +237,8 @@ program ::=
 	expresionVector ::= ID CORCHETE_ABRIR expresionAritmetica CORCHETE_CERRAR;
 	llamadaProcedimientos ::= ID PARENTESIS_ABRIR parametros PARENTESIS_CERRAR
 			| ID PARENTESIS_ABRIR PARENTESIS_CERRAR;
-	parametros ::= expresion | expresion COMA parametros;
+	parametros ::= expresion
+			| expresion COMA parametros;
 	sentenciaSalida ::= ESCRIBE PARENTESIS_ABRIR PARENTESIS_CERRAR PUNTO_COMA
 			| ESCRIBE PARENTESIS_ABRIR STRING PARENTESIS_CERRAR PUNTO_COMA
 			| ESCRIBE_ENT PARENTESIS_ABRIR PARENTESIS_CERRAR PUNTO_COMA
@@ -263,8 +264,8 @@ program ::=
 	sentenciaAlternativas ::= ALTERNATIVAS PARENTESIS_ABRIR expresion PARENTESIS_CERRAR LLAVE_ABRIR casosAlternativa defectoAlternativa LLAVE_CERRAR;
 	casosAlternativa ::= casosAlternativa casoAlternativa
 			| casoAlternativa;
-	casoAlternativa ::= CASO INT DOS_PUNTOS sentencias CORTE DOS_PUNTOS;
-	defectoAlternativa ::= PORDEFECTO sentencias CORTE DOS_PUNTOS | ;
+	casoAlternativa ::= CASO INT DOS_PUNTOS sentencias CORTE PUNTO_COMA;
+	defectoAlternativa ::= PORDEFECTO sentencias CORTE PUNTO_COMA | ;
 	sentenciaLLamadaFuncion ::= llamadaProcedimientos PUNTO_COMA;
 	sentenciaMientras ::= MIENTRAS PARENTESIS_ABRIR expresion PARENTESIS_CERRAR sentencia;
 	sentenciaDevuelve ::= DEVUELVE PUNTO_COMA
