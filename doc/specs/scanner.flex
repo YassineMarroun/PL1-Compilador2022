@@ -57,8 +57,8 @@ ID = {CARACTER}({CARACTER}|{DIGITO})*
 {
 	// Palabras reservadas
    	"caso"				{return crearToken(sym.CASO);}
-   "constante"			{return crearToken(sym.CONSTANTE);}
-   "corte"				{return crearToken(sym.CORTE);}		       
+   	"constante"			{return crearToken(sym.CONSTANTE);}
+   	"corte"				{return crearToken(sym.CORTE);}		       
     "entero"    		{return crearToken(sym.ENTERO);}
 	"escribe"			{return crearToken(sym.ESCRIBE);}
 	"escribeEnt"		{return crearToken(sym.ESCRIBE_ENT);}
