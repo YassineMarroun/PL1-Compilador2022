@@ -25,16 +25,16 @@ import es.uned.lsi.compiler.lexical.LexicalErrorManager;
 // incluir aqui, si es necesario otras directivas
 
 %{
-  LexicalErrorManager lexicalErrorManager = new LexicalErrorManager ();
-  private int commentCount = 0;
+	LexicalErrorManager lexicalErrorManager = new LexicalErrorManager ();
+  	private int commentCount = 0;
 
     Token crearToken(int x) {
-    Token token = new Token(x);
-    token.setLine(yyline + 1);
-    token.setColumn(yycolumn + 1);
-    token.setLexema(yytext());
-    return token;
-  }
+    	Token token = new Token(x);
+    	token.setLine(yyline + 1);
+    	token.setColumn(yycolumn + 1);
+    	token.setLexema(yytext());
+    	return token;
+  	}
 %}  
   
 
